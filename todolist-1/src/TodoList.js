@@ -16,6 +16,9 @@ class TodoList extends React.Component {
         }
         this.handleInput = this.handleInput.bind(this);
         this.addItem = this.addItem.bind(this);
+        this.deleteItems = this.deleteItems.bind(this);
+        this.setUpdate = this.setUpdate.bind(this);
+
     }
     handleInput(e) {
         this.setState({
@@ -41,6 +44,25 @@ class TodoList extends React.Component {
             });
         }
     }
+
+    deleteItems(key){
+        const filteredItems = this.state.items.filter((item) =>
+            item.key !==key);
+            this.setState({
+                items: filteredItems
+            })
+    }
+    setUpdate(text, key){
+        const item = this.state.items;
+        item.map((item)=>{
+            if(item.key === key){
+                item.text = text;
+            }
+        })
+        this.setState({
+            items:item
+        })
+    }
     render() {
         return (
             <div className="App">
@@ -52,7 +74,10 @@ class TodoList extends React.Component {
                         />
                         <button type="Submit">Add</button>
                     </form>
-                    <ListItem items={this.state.items} />
+                    <ListItem items={this.state.items}
+                            deleteItems = {this.deleteItems}
+                            setUpdate={this.setUpdate}
+                    />
                 </header>
             </div>
         )
