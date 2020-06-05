@@ -1,11 +1,8 @@
 {
-  "name": "todolist-1",
+  "name": "TodoList",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://minhphung140296.github.io/TodoList",
-  "name":"TodoList",
-  "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -17,6 +14,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-flip-move": "^3.0.4",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
   "scripts": {

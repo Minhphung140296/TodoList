@@ -53,8 +53,8 @@ class TodoList extends React.Component {
             })
     }
     setUpdate(text, key){
-        const item = this.state.items;
-        item.map((item)=>{
+        const items = this.state.items;
+        items.map((item)=>{
             if(item.key === key){
                 item.text = text;
             }
@@ -65,7 +65,7 @@ class TodoList extends React.Component {
     }
     render() {
         return (
-            <div className="App">
+            <div className="App" to={process.env.PUBLIC_URL}>
                 <header>
                     <form id="todo-list" onSubmit={this.addItem}>
                         <input type="text" placeholder="Enter test"
