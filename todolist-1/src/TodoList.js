@@ -1,8 +1,11 @@
 import React from 'react';
 import "./App.css";
+import ReactDOM from 'react-dom';
 import ListItem from './Components/ListItem';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 library.add(faTrash); 
 class TodoList extends React.Component {
     constructor(props) {
@@ -60,7 +63,7 @@ class TodoList extends React.Component {
             }
         })
         this.setState({
-            items:item
+            items:items
         })
     }
     render() {
