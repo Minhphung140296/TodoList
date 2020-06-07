@@ -44,8 +44,6 @@ class TodoList_Firebase extends React.Component {
         });
       }
 
-
-
     handleInput(e) {
         this.setState({
             currentItem: {
@@ -69,6 +67,7 @@ class TodoList_Firebase extends React.Component {
                     key: ''
                 }
             });
+            // thêm data lên firestone 
             this.writeUserData(newItem.key, newItem.text)
         }
     }
@@ -98,9 +97,6 @@ class TodoList_Firebase extends React.Component {
     componentDidMount() {
         firebase.init();
         this._retrieveData();
-        // console.log(this.state.items);
-        // thêm dư lieu
-        // this.writeUserData()
     }
 
     render() {
