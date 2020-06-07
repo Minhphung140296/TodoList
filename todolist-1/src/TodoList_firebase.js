@@ -6,7 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import firebase from './firebaseconfig';
 
-class TodoList extends React.Component {
+class TodoList_Firebase extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,24 +24,26 @@ class TodoList extends React.Component {
     }
 
     _retrieveData = async () => {
-        let quotes = [];
-        let query = await firebase.db.collection('test').get();
-        query.forEach(quote => {
-            quotes.push({
-                text: quote.data().text,
-                id: quote.data().id
+        let data = [];
+        let query = await firebase.db.collection('data').get();
+        query.forEach(item => {
+            data.push({
+                text: item.data().text,
+                key: item.data().key
             });
         });
-        this.setState({ quotes, isLoading: false }, () => console.log(this.state.quotes));
+        this.setState({ items : data, isLoading: false }, () => console.log(this.state.items));
         console.log(' dữ liệu từ firebase:');
-        console.log(this.state.quotes);
+        console.log(this.state.items);
     };
 
-    // // them du lieu vo firebase
-    // saveDataToDB = async (text, id, test) => {
-    //     let docRef = await firebase.db.collection('test').add({ text, id });
-    //     test[test.length - 1].id = docRef.id;
-    // };
+    writeUserData = (key, text) => {
+        firebase.db.collection('data').add({
+            key: key,
+            text: text 
+        });
+      }
+
 
 
     handleInput(e) {
@@ -67,6 +69,7 @@ class TodoList extends React.Component {
                     key: ''
                 }
             });
+            this.writeUserData(newItem.key, newItem.text)
         }
     }
 
@@ -89,20 +92,15 @@ class TodoList extends React.Component {
         })
     }
 
-    writeUserData = () => {
-        firebase.db.collection('test').add({
-            id: '5',
-            text: 'phụng' 
-        });
-      }
+    
 
     // chương trình bắt đầu sẽ load chỗ này đầu tiên
     componentDidMount() {
         firebase.init();
         this._retrieveData();
-        console.log(this.state.quotes);
+        // console.log(this.state.items);
         // thêm dư lieu
-        this.writeUserData()
+        // this.writeUserData()
     }
 
     render() {
@@ -125,4 +123,4 @@ class TodoList extends React.Component {
         )
     }
 }
-export default TodoList;
+export default TodoList_Firebase;
