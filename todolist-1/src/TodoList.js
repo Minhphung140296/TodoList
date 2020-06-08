@@ -24,19 +24,20 @@ class TodoList extends React.Component {
     }
 
     _retrieveData = async () => {
-        let quotes = [];
+        let Data = [];
         let query = await firebase.db.collection('test').get();
-        query.forEach(quote => {
-            quotes.push({
-                text: quote.data().text,
-                id: quote.data().id
+        query.forEach(Item => {
+            Data.push({
+                text: Item.data().text,
+                id: Item.data().id
             });
         });
-        this.setState({ quotes, isLoading: false }, () => console.log(this.state.quotes));
+        this.setState({ Data, isLoading: false }, () => console.log(this.state.Data));
         console.log(' dữ liệu từ firebase:');
-        console.log(this.state.quotes);
+        console.log(this.state.Data);
     };
 
+  
     // // them du lieu vo firebase
     // saveDataToDB = async (text, id, test) => {
     //     let docRef = await firebase.db.collection('test').add({ text, id });
@@ -76,6 +77,7 @@ class TodoList extends React.Component {
         this.setState({
             items: filteredItems
         })
+        
     }
     setUpdate(text, key) {
         const items = this.state.items;
@@ -92,17 +94,28 @@ class TodoList extends React.Component {
     writeUserData = () => {
         firebase.db.collection('test').add({
             id: '5',
-            text: 'phụng' 
+            text: 'phụng'
         });
-      }
+    }
+    //   removeToCollection = () => {
+    //     firebase.database().ref(`users/${userUid}/collection/`).remove(item)
+
+    //    }
+    //Delete data
+    onRemoveMessage = uid => {
+        this.props.firebase.message(uid).remove();
+      };
 
     // chương trình bắt đầu sẽ load chỗ này đầu tiên
     componentDidMount() {
         firebase.init();
         this._retrieveData();
-        console.log(this.state.quotes);
+        console.log(this.state.Data);
         // thêm dư lieu
         this.writeUserData()
+        console.log("Xoá dữ liệu");
+        
+        this.onRemoveMessage()
     }
 
     render() {
