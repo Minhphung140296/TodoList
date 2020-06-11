@@ -6,6 +6,7 @@ body{
   min-height: 500px;
   width: 400px;
   margin: 40px auto;
+  overflow: scroll;
 }
 #todo-list input{
   background-color:indigo;

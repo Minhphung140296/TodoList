@@ -73,7 +73,7 @@ class TodoList extends React.Component {
 
     deleteItems(key) {
         const filteredItems = this.state.items.filter((item) =>
-            item.key !== key);
+            item.key !== key)
         this.setState({
             items: filteredItems
         })
@@ -95,6 +95,10 @@ class TodoList extends React.Component {
             id: id,
             text: text
         })
+    }
+
+    DeletePost = () =>{
+        firebase.database().ref('test/key').remove()   
     }
     // update 
 //     var updates = {};
@@ -127,6 +131,7 @@ componentDidMount() {
     console.log("Xoá dữ liệu");
 
     this.writePost()
+    this.DeletePost()
 }
 
 render() {
