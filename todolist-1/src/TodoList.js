@@ -37,7 +37,7 @@ class TodoList extends React.Component {
         console.log(this.state.Data);
     };
 
-  
+
     // // them du lieu vo firebase
     // saveDataToDB = async (text, id, test) => {
     //     let docRef = await firebase.db.collection('test').add({ text, id });
@@ -77,7 +77,6 @@ class TodoList extends React.Component {
         this.setState({
             items: filteredItems
         })
-        
     }
     setUpdate(text, key) {
         const items = this.state.items;
@@ -91,51 +90,63 @@ class TodoList extends React.Component {
         })
     }
 
-    writeUserData = () => {
-        firebase.db.collection('test').add({
-            id: '5',
-            text: 'phụng'
-        });
+    writePost = (testID, id, text) => {
+        firebase.database().ref('test/' + testID).set({
+            id: id,
+            text: text
+        })
     }
-    //   removeToCollection = () => {
-    //     firebase.database().ref(`users/${userUid}/collection/`).remove(item)
+    // update 
+//     var updates = {};
+// updates['posts/' + 'key-của-record-1'] = 'new value';
+// updates['posts/' + 'key-của-record-2'] = 'new value';
+// ...
+// //ở đây bạn có thể update nhiều giá trị
+// firebase.database().ref().update(updates);
+// writeUserData = () => {
+//     firebase.db.collection('test').add({
+//         id: '5',
+//         text: 'phụng'
+//     });
+// }
+//   removeToCollection = () => {
+//     firebase.database().ref(`users/${userUid}/collection/`).remove(item)
 
-    //    }
-    //Delete data
-    onRemoveMessage = uid => {
-        this.props.firebase.message(uid).remove();
-      };
+//    }
+//Delete data
 
-    // chương trình bắt đầu sẽ load chỗ này đầu tiên
-    componentDidMount() {
-        firebase.init();
-        this._retrieveData();
-        console.log(this.state.Data);
-        // thêm dư lieu
-        this.writeUserData()
-        console.log("Xoá dữ liệu");
-        
-        this.onRemoveMessage()
-    }
+//Sửa Data
 
-    render() {
-        return (
-            <div className="App" to={process.env.PUBLIC_URL}>
-                <header>
-                    <form id="todo-list" onSubmit={this.addItem}>
-                        <input type="text" placeholder="Enter test"
-                            value={this.state.currentItem.text}
-                            onChange={this.handleInput}
-                        />
-                        <button type="Submit">Add</button>
-                    </form>
-                    <ListItem items={this.state.items}
-                        deleteItems={this.deleteItems}
-                        setUpdate={this.setUpdate}
+// chương trình bắt đầu sẽ load chỗ này đầu tiên
+componentDidMount() {
+    firebase.init();
+    this._retrieveData();
+    console.log(this.state.Data);
+    // thêm dư lieu
+    this.writeUserData()
+    console.log("Xoá dữ liệu");
+
+    this.writePost()
+}
+
+render() {
+    return (
+        <div className="App" to={process.env.PUBLIC_URL}>
+            <header>
+                <form id="todo-list" onSubmit={this.addItem}>
+                    <input type="text" placeholder="Enter test"
+                        value={this.state.currentItem.text}
+                        onChange={this.handleInput}
                     />
-                </header>
-            </div>
-        )
-    }
+                    <button type="Submit">Add</button>
+                </form>
+                <ListItem items={this.state.items}
+                    deleteItems={this.deleteItems}
+                    setUpdate={this.setUpdate}
+                />
+            </header>
+        </div>
+    )
+}
 }
 export default TodoList;
