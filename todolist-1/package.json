@@ -2,7 +2,7 @@
   "name": "todolist-1",
   "version": "0.1.0",
   "private": true,
-  "homepage": " ",
+  "homepage": "https://minhphung140296.github.io/TodoList/",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
