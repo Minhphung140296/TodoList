@@ -68,6 +68,7 @@ class TodoList extends React.Component {
                     key: ''
                 }
             });
+            // this.writePost();
         }
     }
 
@@ -90,11 +91,16 @@ class TodoList extends React.Component {
         })
     }
 
-    writePost = (testID, id, text) => {
-        firebase.database().ref('test/' + testID).set({
+    writePost = (id, text) => {
+        firebase.db.collection('cities').doc('new-city-id').set({
             id: id,
             text: text
-        })
+        });
+
+        // firebase.database().ref('test/' + testID).set({
+        //     id: id,
+        //     text: text
+        // })
     }
 
     DeletePost = () =>{
@@ -127,11 +133,11 @@ componentDidMount() {
     this._retrieveData();
     console.log(this.state.Data);
     // thêm dư lieu
-    this.writeUserData()
+    // this.writeUserData()
     console.log("Xoá dữ liệu");
 
-    this.writePost()
-    this.DeletePost()
+    // this.writePost()
+    // this.DeletePost()
 }
 
 render() {

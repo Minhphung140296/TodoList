@@ -25,24 +25,45 @@ class TodoList_Firebase extends React.Component {
 
     _retrieveData = async () => {
         let data = [];
-        let query = await firebase.db.collection('data').get();
+        let query = await firebase.db.collection('test').get();
         query.forEach(item => {
+            console.log("item logggggg"); 
+            console.log(item); 
             data.push({
                 text: item.data().text,
                 key: item.data().key
             });
         });
-        this.setState({ items : data, isLoading: false }, () => console.log(this.state.items));
+        this.setState({ items: data, isLoading: false }, () => console.log(this.state.items));
         console.log(' dữ liệu từ firebase:');
         console.log(this.state.items);
     };
 
     writeUserData = (key, text) => {
-        firebase.db.collection('data').add({
+        // id cho minh set up
+
+        // firebase.db.collection('test').doc('new-city-id/').set({
+        //     key: key,
+        //     text: text
+        // });
+
+        // id tu sinh ra
+
+        // firebase.db.collection('test').add({
+        //     key: key,
+        //     text: text 
+        // });
+
+        // Add a new document with a generated id.
+        firebase.db.collection('test').add({
             key: key,
-            text: text 
+            text: text
+        }).then(ref => { // ref là docid tự sinh ra, trả về lai cho mình, o thay đổi được
+            console.log('Added document with ID: ', ref.id);
         });
-      }
+
+
+    }
 
     handleInput(e) {
         this.setState({
@@ -79,6 +100,11 @@ class TodoList_Firebase extends React.Component {
             items: filteredItems
         })
     }
+
+    DeletePost = () =>{
+        firebase.database().ref('test/key').remove()   
+    }
+
     setUpdate(text, key) {
         const items = this.state.items;
         items.map((item) => {
@@ -91,7 +117,7 @@ class TodoList_Firebase extends React.Component {
         })
     }
 
-    
+
 
     // chương trình bắt đầu sẽ load chỗ này đầu tiên
     componentDidMount() {
